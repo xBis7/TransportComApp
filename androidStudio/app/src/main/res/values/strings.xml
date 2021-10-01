@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">My Shop App</string>
+    <string name="button_search">Search</string>
+    <string name="button_new_entry">New Entry</string>
+    <string name="entry_name">Name</string>
+    <string name="edit_name">Enter name</string>
+    <string name="entry_address">Address</string>
+    <string name="edit_address">Enter address</string>
+    <string name="entry_city">City</string>
+    <string name="edit_city">Enter city</string>
+    <string name="entry_phone">Phone Number</string>
+    <string name="edit_phone">Enter phone number</string>
+    <string name="entry_date">Date</string>
+    <string name="edit_date">Enter date</string>
+    <string name="product1">Product type 1</string>
+    <string name="product2">Product type 2</string>
+    <string name="product_price_tag">Price</string>
+    <string name="product_quantity_tag">Quantity</string>
+    <string name="product_price">Enter price</string>
+    <string name="product_quantity">Enter quantity</string>
+    <string name="product3">Product type 3</string>
+    <string name="product4">Product type 4</string>
+    <string name="product5">Product type 5</string>
+    <string name="button_add">Add</string>
+    <string name="send_sms">Send confirmation sms to</string>
+    <string name="send_sms_button">Send SMS</string>
+    <string name="finish_button">Finish</string>
+    <string name="cancel_button">Cancel</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Xristos/AndroidStudioProjects/MyShop/app/src/main/res/layout/activity_add_new_entry.xml" value="0.25421530479896237" />
+        <entry key="..\:/Users/Xristos/AndroidStudioProjects/MyShop/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Xristos/Desktop/code snippets/Android Studio projects/MyShop/app/src/main/res/layout/activity_add_confirmation.xml" value="0.325" />
+        <entry key="..\:/Users/Xristos/Desktop/code snippets/Android Studio projects/MyShop/app/src/main/res/layout/activity_add_new_entry.xml" value="0.33" />
+        <entry key="..\:/Users/Xristos/Desktop/code snippets/Android Studio projects/MyShop/app/src/main/res/layout/activity_main.xml" value="0.32019927536231885" />
+        <entry key="..\:/Users/Xristos/Desktop/code snippets/Android Studio projects/MyShop/app/src/main/res/layout/activity_search_old_entry.xml" value="0.14814814814814814" />
+        <entry key="..\:/Users/Xristos/Desktop/code snippets/github repos/TransportationComApp/androidStudio/app/src/main/res/layout/activity_add_confirmation.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
