@@ -125,19 +125,19 @@ public class AddNewEntry extends AppCompatActivity {
             price5 = "-";
         }
 
-        String product1 = "Product1     Quantity:" + quantity1 + "  Price:" + price1;
+        String product1 = "Quantity:" + quantity1 + "  Price:" + price1;
         extras.putString(EXTRA_PRODUCT1, product1);
 
-        String product2 = "Product2     Quantity:" + quantity2 + "  Price:" + price2;
+        String product2 = "Quantity:" + quantity2 + "  Price:" + price2;
         extras.putString(EXTRA_PRODUCT2, product2);
 
-        String product3 = "Product3     Quantity:" + quantity3 + "  Price:" + price3;
+        String product3 = "Quantity:" + quantity3 + "  Price:" + price3;
         extras.putString(EXTRA_PRODUCT3, product3);
 
-        String product4 = "Product4     Quantity:" + quantity4 + "  Price:" + price4;
+        String product4 = "Quantity:" + quantity4 + "  Price:" + price4;
         extras.putString(EXTRA_PRODUCT4, product4);
 
-        String product5 = "Product5     Quantity:" + quantity5 + "  Price:" + price5;
+        String product5 = "Quantity:" + quantity5 + "  Price:" + price5;
         extras.putString(EXTRA_PRODUCT5, product5);
 
         AlertDialog.Builder emptyFieldDialog = new AlertDialog.Builder(this);
@@ -147,7 +147,6 @@ public class AddNewEntry extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        Toast.makeText(AddNewEntry.this,"Continuing to info confirmation",Toast.LENGTH_LONG).show();
                         intent.putExtras(extras);
                         startActivity(intent);
                     }
