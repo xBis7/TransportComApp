@@ -1,0 +1,104 @@
+const express = require('express');
+const router = express.Router();
+const Customer = require('../models/customer');
+var serial = 1;
+
+//getting all 
+router.get('/', async (req, res) => {
+    try{
+        const customers = await Customer.find();
+        res.json(customers);
+    }catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+})
+
+
+//getting one
+router.get('/:serialNum', getCustomer, (req, res) => {
+    res.json(res.customer);
+})
+
+
+//creating one
+router.post('/', async (req, res) => {
+    if(await Customer.findOne() != null){
+        serial++;
+    }
+    else{
+        serial = 1;
+    }
+
+    const customer = new Customer({
+        serialNum: serial,
+        name: req.body.name,
+        address: req.body.address,
+        city: req.body.city, 
+        phone: req.body.phone, 
+        product1: req.body.product1,  
+        product2: req.body.product2, 
+        product3: req.body.product3,
+        product4: req.body.product4, 
+        product5: req.body.product5 
+    })
+
+    try{
+        const newCustomer = await customer.save();
+        res.status(201).json(newCustomer);
+    }
+    catch (err){
+        res.status(400).json({ message: err.message });
+    }
+    
+})
+
+
+//update one
+router.patch('/:serialNum', getCustomer, async (req, res) => {
+    if(req.body.name != null){
+        res.customer.name = req.body.name;
+    }
+    if(req.body.address != null){
+        res.customer.address = req.body.address;
+    }
+    if(req.body.city != null){
+        res.customer.city = req.body.city;
+    }
+    if(req.body.phone != null){
+        res.customer.phone = req.body.phone;
+    }
+    try{
+        const updatedCustomer = await res.customer.save();
+        res.json(updatedCustomer);
+
+    }catch(err){
+        res.status(400).json({ message: err.message });
+    }
+})
+
+
+//delete one
+router.delete('/:serialNum', getCustomer, async (req, res) => {
+    try{
+        await res.customer.remove();
+        res.json({ message: 'Deleted Customer' });
+    }catch(err){
+        res.status(500).json({ message: err.message });
+    }
+})
+
+async function getCustomer(req, res, next){
+    try{
+        customer = await Customer.findOne();
+        if(customer == null){
+            return res.status(404).json({ message: 'Cannot find customer' });
+        }
+    }catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+    res.customer = customer;
+    next();
+}
+
+
+module.exports = router;
