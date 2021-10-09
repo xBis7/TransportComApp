@@ -6,13 +6,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AddNewEntry extends AppCompatActivity {
 
     public static final String EXTRA_NAME = "com.example.myshop.MESSAGE";
+    public static final String EXTRA_SERIAL = "com.example.myshop.SERIAL";
     public static final String EXTRA_ADDRESS = "com.example.myshop.ADDRESS";
     public static final String EXTRA_CITY = "com.example.myshop.CITY";
     public static final String EXTRA_PHONE = "com.example.myshop.PHONE";
@@ -23,16 +34,50 @@ public class AddNewEntry extends AppCompatActivity {
     public static final String EXTRA_PRODUCT4 = "com.example.myshop.PRODUCT4";
     public static final String EXTRA_PRODUCT5 = "com.example.myshop.PRODUCT5";
 
+    private String serialNum;
+
+    APIService apiService;
+
+    private List<DataModal> dataModalList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_entry);
+
+        //get all customer json objects and adding them to dataModalList
+        //find list size to find total customers and give a serial number
+        //to the next customer
+        dataModalList = new ArrayList<>();
+
+        apiService = ApiClient.getClient().create(APIService.class);
+
+        Call<List<DataModal>> call = apiService.getCustomers();
+
+        call.enqueue(new Callback<List<DataModal>>() {
+            @Override
+            public void onResponse(Call<List<DataModal>> call, Response<List<DataModal>> response) {
+                if (response.isSuccessful()) {
+                    dataModalList.addAll(response.body());
+                    Log.e("AddNewEntry", "RESPONSE:" + dataModalList.size());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DataModal>> call, Throwable t) {
+                Toast.makeText(AddNewEntry.this, "Error getting data and adding serial number to new customer", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     public void add(View view){
         Intent intent = new Intent(this, AddConfirmation.class);
 
         Bundle extras = new Bundle();
+
+        serialNum = String.valueOf(dataModalList.size() + 1);
+        extras.putString(EXTRA_SERIAL, serialNum);
 
         EditText editText1 = (EditText) findViewById(R.id.editTextTextPersonName);
         String name = editText1.getText().toString();
@@ -161,22 +206,12 @@ public class AddNewEntry extends AppCompatActivity {
             }
         });
 
-        if(name.equals("") || address.equals("") || city.equals("") || phone.equals("") || date.equals("")){
+        if(!name.equals("") && !address.equals("") && !city.equals("") && !phone.equals("")){
             //open dialog
-            if(name.equals("")){
-                name = "--";
-            }
-            if(address.equals("")){
-                address = "--";
-            }
-            if(city.equals("")){
-                city = "--";
-            }
-            if(phone.equals("")){
-                phone = "--";
-            }
             if(date.equals("")){
-                date = "--";
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                Date currentDate = new Date();
+                date = formatter.format(currentDate);
             }
 
             extras.putString(EXTRA_NAME, name);
@@ -185,12 +220,18 @@ public class AddNewEntry extends AppCompatActivity {
             extras.putString(EXTRA_PHONE, phone);
             extras.putString(EXTRA_DATE, date);
 
-            AlertDialog alertDialog = emptyFieldDialog.create();
-            alertDialog.show();
+            if(quantity1.equals("-") && quantity2.equals("-") && quantity3.equals("-") && quantity4.equals("-") && quantity5.equals("-")){
+                AlertDialog alertDialog = emptyFieldDialog.create();
+                alertDialog.show();
+            }
+            else{
+                intent.putExtras(extras);
+                startActivity(intent);
+            }
+
         }
-        else{
-            intent.putExtras(extras);
-            startActivity(intent);
+        else {
+            Toast.makeText(AddNewEntry.this, "At least one of the customer info fields is empty", Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -8,6 +8,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
+import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 
 import android.view.View;
@@ -16,6 +17,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,8 +33,10 @@ public class AddConfirmation extends AppCompatActivity {
     private String message1;
     private String message2;
     private String message3;
+    private String message4;
     private ProgressBar loadingPB;
     EditText editTextPhone;
+    String serialNum;
     String name;
     String address;
     String city;
@@ -42,13 +48,17 @@ public class AddConfirmation extends AppCompatActivity {
     String product4;
     String product5;
 
-    private static final String BASE_URL = "http://10.0.2.2:3000";
+    APIService apiService;
 
+    private List<DataModal> dataModalList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_confirmation);
+
+        apiService = ApiClient.getClient().create(APIService.class);
+        dataModalList = new ArrayList<>();
 
         sendSMS = (Button) findViewById(R.id.button4);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone2);
@@ -57,12 +67,14 @@ public class AddConfirmation extends AppCompatActivity {
         Bundle extras = intent.getExtras();
 
         name = extras.getString(AddNewEntry.EXTRA_NAME);
-        // Capture the layout's TextView and set the string as its text
         TextView textView1 = findViewById(R.id.textView27);
         textView1.setText("Name: " + name);
 
+        serialNum = extras.getString(AddNewEntry.EXTRA_SERIAL);
+        TextView textView = findViewById(R.id.textView32);
+        textView.setText("Serial Number: " + serialNum);
+
         address = extras.getString(AddNewEntry.EXTRA_ADDRESS);
-        // Capture the layout's TextView and set the string as its text
         TextView textView2 = findViewById(R.id.textView28);
         textView2.setText("Address: " + address);
 
@@ -100,11 +112,13 @@ public class AddConfirmation extends AppCompatActivity {
 
         loadingPB = findViewById(R.id.progressBar);
 
-        message1 = name + ", " + address + ", " + city + ", " + phone + ", " + date;
+        message1 = name + ", " + serialNum + ", " + address;
 
-        message2 = "Product1 " + product1 + ", Product2 " + product2 + ", Product3 " + product3;
+        message2 = city + ", " + phone + ", " + date;
 
-        message3 = "Product4 " + product4 + ", Product5 " + product5;
+        message3 = "Product1 " + product1 + ", Product2 " + product2 + ", Product3 " + product3;
+
+        message4 = "Product4 " + product4 + ", Product5 " + product5;
 
         sendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +128,7 @@ public class AddConfirmation extends AppCompatActivity {
                     smsManager.sendTextMessage(editTextPhone.getText().toString(), null, message1, null, null);
                     smsManager.sendTextMessage(editTextPhone.getText().toString(), null, message2, null, null);
                     smsManager.sendTextMessage(editTextPhone.getText().toString(), null, message3, null, null);
+                    smsManager.sendTextMessage(editTextPhone.getText().toString(), null, message4, null, null);
                     Toast.makeText(AddConfirmation.this, "SMS sent successfully", Toast.LENGTH_LONG).show();
                 }
                 catch(Exception e){
@@ -126,43 +141,30 @@ public class AddConfirmation extends AppCompatActivity {
     }
 
     public void finish(View view){
-        // below line is for displaying our progress bar.
+        //displaying the progress bar.
         loadingPB.setVisibility(View.VISIBLE);
 
-        // on below line we are creating a retrofit
-        // builder and passing our base url
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                // as we are sending data in json format so
-                // we have to add Gson converter factory
-                .addConverterFactory(GsonConverterFactory.create())
-                // at last we are building our retrofit builder.
-                .build();
-        // below line is to create an instance for our retrofit api class.
-        APIService apiService = retrofit.create(APIService.class);
+        //passing data from text fields to the modal class.
+        DataModal modal = new DataModal(name, serialNum, address, city, phone, date, product1, product2, product3, product4, product5);
 
-        // passing data from our text fields to our modal class.
-        DataModal modal = new DataModal(name, address, city, phone, date, product1, product2, product3, product4, product5);
-
-        // calling a method to create a post and passing our modal class.
+        //calling a method to create a post and passing the modal class.
         Call<DataModal> call = apiService.newCustomer(modal);
 
-        // on below line we are executing our method.
+        //execute the method
         call.enqueue(new Callback<DataModal>() {
             @Override
             public void onResponse(Call<DataModal> call, Response<DataModal> response) {
-                // this method is called when we get response from our api.
+
                 Toast.makeText(AddConfirmation.this, "Data saved successfully", Toast.LENGTH_SHORT).show();
 
-                // below line is for hiding our progress bar.
+                //hide the progress bar
                 loadingPB.setVisibility(View.GONE);
-
             }
 
             @Override
             public void onFailure(Call<DataModal> call, Throwable t) {
-                // setting text to our text view when
-                // we get error response from API.
+
+                //on error response
                 Toast.makeText(AddConfirmation.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });

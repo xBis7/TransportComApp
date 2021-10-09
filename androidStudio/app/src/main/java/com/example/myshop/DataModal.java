@@ -2,6 +2,7 @@ package com.example.myshop;
 
 public class DataModal {
     private String name;
+    private String serialNum;
     private String address;
     private String city;
     private String phone;
@@ -12,9 +13,10 @@ public class DataModal {
     private String product4;
     private String product5;
 
-    public DataModal(String name, String address, String city, String phone, String date,
+    public DataModal(String name, String serialNum, String address, String city, String phone, String date,
                      String product1, String product2, String product3, String product4, String product5){
         this.name = name;
+        this.serialNum = serialNum;
         this.address = address;
         this.city = city;
         this.phone = phone;
@@ -34,6 +36,16 @@ public class DataModal {
     public void setName(String name) {
 
         this.name = name;
+    }
+
+    public String getSerialNum() {
+
+        return serialNum;
+    }
+
+    public void setSerialNum(String serialNum) {
+
+        this.serialNum = serialNum;
     }
 
     public String getAddress() {
@@ -124,5 +136,22 @@ public class DataModal {
     public void setProduct5(String product5) {
 
         this.product5 = product5;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "\nname=" + name +
+                ", \nserialNum=" + serialNum +
+                ", \naddress=" + address +
+                ", \ncity=" + city +
+                ", \nphone=" + phone +
+                ", \ndate=" + date +
+                ", \nproduct1=" + product1 +
+                ", \nproduct2=" + product2 +
+                ", \nproduct3=" + product3 +
+                ", \nproduct4=" + product4 +
+                ", \nproduct5=" + product5 +
+                "\n}";
     }
 }

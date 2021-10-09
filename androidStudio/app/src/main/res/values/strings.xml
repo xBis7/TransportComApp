@@ -26,4 +26,9 @@
     <string name="send_sms_button">Send SMS</string>
     <string name="finish_button">Finish</string>
     <string name="cancel_button">Cancel</string>
+    <string name="entry_serial_number">Serial Number</string>
+    <string name="entry_search">Search for a customer\'s info</string>
+    <string name="edit_search">Enter a serial number</string>
+    <string name="button_find">find</string>
+    <string name="search_result">Search Result</string>
 </resources>

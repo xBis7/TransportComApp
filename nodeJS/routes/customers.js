@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Customer = require('../models/customer');
-var serial = 1;
 
 //getting all 
 router.get('/', async (req, res) => {
@@ -15,23 +14,17 @@ router.get('/', async (req, res) => {
 
 
 //getting one
-router.get('/:serialNum', getCustomer, (req, res) => {
+router.get('/find', getCustomer, (req, res) => {
     res.json(res.customer);
 })
 
 
 //creating one
 router.post('/', async (req, res) => {
-    if(await Customer.findOne() != null){
-        serial++;
-    }
-    else{
-        serial = 1;
-    }
 
     const customer = new Customer({
-        serialNum: serial,
         name: req.body.name,
+        serialNum: req.body.serialNum,
         address: req.body.address,
         city: req.body.city, 
         phone: req.body.phone, 
@@ -54,7 +47,7 @@ router.post('/', async (req, res) => {
 
 
 //update one
-router.patch('/:serialNum', getCustomer, async (req, res) => {
+router.patch('/query', getCustomer, async (req, res) => {
     if(req.body.name != null){
         res.customer.name = req.body.name;
     }
@@ -78,7 +71,7 @@ router.patch('/:serialNum', getCustomer, async (req, res) => {
 
 
 //delete one
-router.delete('/:serialNum', getCustomer, async (req, res) => {
+router.delete('/query', getCustomer, async (req, res) => {
     try{
         await res.customer.remove();
         res.json({ message: 'Deleted Customer' });
@@ -89,7 +82,7 @@ router.delete('/:serialNum', getCustomer, async (req, res) => {
 
 async function getCustomer(req, res, next){
     try{
-        customer = await Customer.findOne();
+        customer = await Customer.findOne(req.query);
         if(customer == null){
             return res.status(404).json({ message: 'Cannot find customer' });
         }
