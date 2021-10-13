@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.provider.ContactsContract;
@@ -27,6 +28,8 @@ import retrofit2.Response;
 public class SearchOldEntry extends AppCompatActivity {
 
     private String serialNum;
+
+    public static final String EXTRA_SHARE_TEXT = "com.example.myshop.MESSAGE";
 
     APIService apiService;
 
@@ -94,7 +97,15 @@ public class SearchOldEntry extends AppCompatActivity {
                     dialogBuilder.setPositiveButton("SHARE", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            //add share code
+
+                            Intent sendIntent = new Intent();
+                            sendIntent.setAction(Intent.ACTION_SEND);
+                            sendIntent.putExtra(EXTRA_SHARE_TEXT, response.body().toString());
+                            sendIntent.setType("text/plain");
+
+                            Intent shareIntent = Intent.createChooser(sendIntent, null);
+
+                            startActivity(shareIntent);
                         }
                     });
 
