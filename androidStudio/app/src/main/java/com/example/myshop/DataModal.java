@@ -140,18 +140,16 @@ public class DataModal {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "\nname=" + name +
-                ", \nserialNum=" + serialNum +
-                ", \naddress=" + address +
-                ", \ncity=" + city +
-                ", \nphone=" + phone +
-                ", \ndate=" + date +
-                ", \nproduct1=" + product1 +
-                ", \nproduct2=" + product2 +
-                ", \nproduct3=" + product3 +
-                ", \nproduct4=" + product4 +
-                ", \nproduct5=" + product5 +
-                "\n}";
+        return  " \nname= " + name +
+                " \nserialNum= " + serialNum +
+                " \naddress= " + address +
+                " \ncity= " + city +
+                " \nphone= " + phone +
+                " \ndate= " + date +
+                " \nproduct1= " + product1 +
+                " \nproduct2= " + product2 +
+                " \nproduct3= " + product3 +
+                " \nproduct4= " + product4 +
+                " \nproduct5= " + product5 ;
     }
 }

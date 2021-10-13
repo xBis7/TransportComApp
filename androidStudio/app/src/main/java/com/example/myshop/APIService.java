@@ -24,4 +24,7 @@ public interface APIService {
 
     @POST("/customers")
     Call<DataModal> newCustomer(@Body DataModal dataModal);
+
+    @DELETE("/customers")
+    Call<DataModal> deleteCustomers();
 }

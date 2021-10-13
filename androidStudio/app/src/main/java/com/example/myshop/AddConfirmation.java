@@ -50,15 +50,12 @@ public class AddConfirmation extends AppCompatActivity {
 
     APIService apiService;
 
-    private List<DataModal> dataModalList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_confirmation);
 
         apiService = ApiClient.getClient().create(APIService.class);
-        dataModalList = new ArrayList<>();
 
         sendSMS = (Button) findViewById(R.id.button4);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone2);
@@ -141,6 +138,9 @@ public class AddConfirmation extends AppCompatActivity {
     }
 
     public void finish(View view){
+
+        Intent finishIntent = new Intent(this, MainActivity.class);
+
         //displaying the progress bar.
         loadingPB.setVisibility(View.VISIBLE);
 
@@ -159,6 +159,8 @@ public class AddConfirmation extends AppCompatActivity {
 
                 //hide the progress bar
                 loadingPB.setVisibility(View.GONE);
+
+                startActivity(finishIntent);
             }
 
             @Override
@@ -169,8 +171,6 @@ public class AddConfirmation extends AppCompatActivity {
             }
         });
 
-        Intent finishIntent = new Intent(this, MainActivity.class);
-        startActivity(finishIntent);
     }
 
     public void cancel(View view){

@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
 
 
 //update one
-router.patch('/query', getCustomer, async (req, res) => {
+router.patch('/update', getCustomer, async (req, res) => {
     if(req.body.name != null){
         res.customer.name = req.body.name;
     }
@@ -71,11 +71,29 @@ router.patch('/query', getCustomer, async (req, res) => {
 
 
 //delete one
-router.delete('/query', getCustomer, async (req, res) => {
+router.delete('/delete', getCustomer, async (req, res) => {
     try{
         await res.customer.remove();
         res.json({ message: 'Deleted Customer' });
     }catch(err){
+        res.status(500).json({ message: err.message });
+    }
+})
+
+//delete all
+router.delete('/', async(req, res) => {
+    try{
+
+        Customer.deleteMany({}, function(err){
+            if(err){
+                throw err;
+            }
+            else{
+                res.json({ message: 'Collection deleted' });
+            }
+        });
+    }
+    catch(err){
         res.status(500).json({ message: err.message });
     }
 })
