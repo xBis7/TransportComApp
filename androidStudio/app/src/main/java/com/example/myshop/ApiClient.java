@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "https://customers-restapi.herokuapp.com/";  //"http://10.0.2.2:3000" for local testing, not deployed rest api
+    private static final String BASE_URL = "https://10.0.2.2:3000";  //https://<your-rest-apis-name>.herokuapp.com/   if your rest api is deployed to heroku
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient(){
