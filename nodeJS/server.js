@@ -14,7 +14,8 @@ app.use(express.json());
 const customersRouter = require('./routes/customers');
 app.use('/customers', customersRouter);
 
-app.listen(3000, () => console.log('Server Started'));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log('Server Started'));
 
 
 //'npm run devStart' to run the server with nodemon o restart automatically
