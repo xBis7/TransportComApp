@@ -19,3 +19,4 @@ app.listen(port, () => console.log('Server Started'));
 
 
 //'npm run devStart' to run the server with nodemon o restart automatically
+//'npm install' to install all dependencies from the package.json file (node_modules dir in .gitignore)
