@@ -103,70 +103,70 @@ public class AddNewEntry extends AppCompatActivity {
         EditText editText6 = (EditText) findViewById(R.id.editTextNumberSigned3);
         String quantity1 = editText6.getText().toString();
 
-        if(quantity1.equals("")){
+        if(quantity1.isEmpty()){
             quantity1 = "-";
         }
 
         EditText editText7 = (EditText) findViewById(R.id.editTextNumberDecimal2);
         String price1 = editText7.getText().toString();
 
-        if(price1.equals("")){
+        if(price1.isEmpty()){
             price1 = "-";
         }
 
         EditText editText8 = (EditText) findViewById(R.id.editTextNumberSigned4);
         String quantity2 = editText8.getText().toString();
 
-        if(quantity2.equals("")){
+        if(quantity2.isEmpty()){
             quantity2 = "-";
         }
 
         EditText editText9 = (EditText) findViewById(R.id.editTextNumberDecimal3);
         String price2 = editText9.getText().toString();
 
-        if(price2.equals("")){
+        if(price2.isEmpty()){
             price2 = "-";
         }
 
         EditText editText10 = (EditText) findViewById(R.id.editTextNumberSigned5);
         String quantity3 = editText10.getText().toString();
 
-        if(quantity3.equals("")){
+        if(quantity3.isEmpty()){
             quantity3 = "-";
         }
 
         EditText editText11 = (EditText) findViewById(R.id.editTextNumberDecimal4);
         String price3 = editText11.getText().toString();
 
-        if(price3.equals("")){
+        if(price3.isEmpty()){
             price3 = "-";
         }
 
         EditText editText12 = (EditText) findViewById(R.id.editTextNumberSigned);
         String quantity4 = editText12.getText().toString();
 
-        if(quantity4.equals("")){
+        if(quantity4.isEmpty()){
             quantity4 = "-";
         }
 
         EditText editText13 = (EditText) findViewById(R.id.editTextNumberDecimal);
         String price4 = editText13.getText().toString();
 
-        if(price4.equals("")){
+        if(price4.isEmpty()){
             price4 = "-";
         }
 
         EditText editText14 = (EditText) findViewById(R.id.editTextNumberSigned2);
         String quantity5 = editText14.getText().toString();
 
-        if(quantity5.equals("")){
+        if(quantity5.isEmpty()){
             quantity5 = "-";
         }
 
         EditText editText15 = (EditText) findViewById(R.id.editTextNumberDecimal5);
         String price5 = editText15.getText().toString();
 
-        if(price5.equals("")){
+        if(price5.isEmpty()){
             price5 = "-";
         }
 
@@ -206,7 +206,7 @@ public class AddNewEntry extends AppCompatActivity {
             }
         });
 
-        if(!name.equals("") && !address.equals("") && !city.equals("") && !phone.equals("")){
+        if(!name.isEmpty() && !address.isEmpty() && !city.isEmpty() && !phone.isEmpty()){
             //open dialog
             if(date.equals("")){
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
